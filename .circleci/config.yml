@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.12
+    working_directory: /go/src/github.com/dharnitski/go-coverage-sample
+    steps:
+      - checkout
+      - run:
+          name: "Install Dependencies"
+          command: |
+            go get github.com/mattn/goveralls
+            go get -u github.com/ory/go-acc
+      - run:
+          name: "Generate Coverage"
+          command: |
+            go-acc ./...
+      - run:
+          name: "Publish Coverage to Coveralls.io"
+          command: |
+            goveralls -coverprofile=coverage.txt -service semaphore -repotoken $COVERALLS_TOKEN
