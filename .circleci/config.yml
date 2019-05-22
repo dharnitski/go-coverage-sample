@@ -14,7 +14,7 @@ jobs:
       - run:
           name: "Generate Coverage"
           command: |
-            go-acc ./...
+            go test -coverpkg ./... ./... -coverprofile=coverage.txt
       - run:
           name: "Publish Coverage to Coveralls.io"
           command: |
