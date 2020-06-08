@@ -10,10 +10,12 @@ jobs:
           name: "Install Dependencies"
           command: |
             go get github.com/mattn/goveralls
+            go get github.com/ory/go-acc
       - run:
           name: "Generate Coverage"
+          # go test -coverpkg ./... ./... -coverprofile=coverage.txt
           command: |
-            go test -coverpkg ./... ./... -coverprofile=coverage.txt
+            go-acc ./...
       - run:
           name: "Publish Coverage to Coveralls.io"
           command: |
